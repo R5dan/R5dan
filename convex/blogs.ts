@@ -19,7 +19,7 @@ export const createBlog = mutation({
     description: v.string(),
     public: v.boolean(),
     listed: v.boolean(),
-    image: v.string(),
+    image: v.id("_storage"),
   }),
   handler: async (
     ctx,
@@ -50,7 +50,7 @@ export const updateBlog = mutation({
   }),
   handler: async (
     ctx,
-    { id, title, content, description, image, isPublic, listed },
+    { id, title, content, description, isPublic, listed },
   ) => {
     const blog = await ctx.db.get(id);
     if (!blog) {
