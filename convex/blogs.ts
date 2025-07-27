@@ -173,7 +173,7 @@ export const getBlogsForUserId = query({
     }
     const userBlogs = await ctx.db
       .query("blogs")
-      .filter((q) => q.field("canSee").contains(user._id))
+      //.filter((q) => q.field("canSee"))
       .collect();
 
     return publicBlogs.concat(userBlogs);
