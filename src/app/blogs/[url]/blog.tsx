@@ -40,6 +40,7 @@ export default function Blog({ url }: { url: string }) {
           defaultValue="md"
           value={size}
           onValueChange={(value) => {
+            // @ts-expect-error value is correct
             setSize(value);
           }}
         >

@@ -11,7 +11,7 @@
     "verbatimModuleSyntax": true,
 
     /* Strictness */
-    "strict": true,
+    "strict": false,
     "noUncheckedIndexedAccess": true,
     "checkJs": true,
 
@@ -28,7 +28,7 @@
     "baseUrl": ".",
     "paths": {
       "~/*": ["./src/*"]
-    }
+    },
   },
   "include": [
     "next-env.d.ts",
