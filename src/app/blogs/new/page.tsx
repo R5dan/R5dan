@@ -1,10 +1,10 @@
 "use client";
 
-import { api } from "convex/_generated/api";
+import { api } from "../../../../convex/_generated/api";
 import { useMutation } from "convex/react";
 import Edit from "~/components/edit";
 import { useState } from "react";
-import type { Id } from "convex/_generated/dataModel";
+import type { Id } from "../../../../convex/_generated/dataModel";
 
 export default function Page() {
   const createBlog = useMutation(api.blogs.createBlog);

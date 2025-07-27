@@ -1,7 +1,7 @@
 "use client";
 
-import { api } from "convex/_generated/api";
-import type { Doc } from "convex/_generated/dataModel";
+import { api } from "../../../convex/_generated/api";
+import type { Doc } from "../../../convex/_generated/dataModel";
 import { useQuery } from "convex/react";
 import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { useRouter } from "next/navigation";

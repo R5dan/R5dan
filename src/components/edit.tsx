@@ -8,7 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
 import { Switch } from "~/components/ui/switch";
 import { Button } from "~/components/ui/button";
 import { Highlighter } from "~/server/highlighter";
-import { api } from "convex/_generated/api";
+import { api } from "../../convex/_generated/api";
 import { useQuery } from "convex/react";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
