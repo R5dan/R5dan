@@ -189,7 +189,6 @@ export function Highlighter({
                   PreTag="div"
                   className="overflow-x-auto"
                   showLineNumbers
-                  {...{ wrapLines: wrap }}
                   lineNumberContainerStyle={{
                     "padding-right": "10px",
                     "padding-color": "#030712",
