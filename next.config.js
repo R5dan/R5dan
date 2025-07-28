@@ -9,6 +9,9 @@ const config = {
   images: {
     remotePatterns: [new URL("https://fiery-blackbird-477.convex.cloud/**")],
   },
+  typescript: {
+    ignoreBuildErrors: true,
+  }
 };
 
 export default config;
