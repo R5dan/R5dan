@@ -78,8 +78,6 @@ export function Highlighter({
   theme: "dark" | "light";
   size: "xs" | "sm" | "md" | "lg" | "xl";
 }) {
-  const [wrap, setWrap] = useState(false);
-
   return (
     <ReactMarkdown
       remarkPlugins={[remarkGfm]}
@@ -143,6 +141,7 @@ export function Highlighter({
 
           return <h4 className={className}>{children}</h4>;
         },
+        // @ts-expect-error inline is a valid prop
         code({ inline, className, children, ...props }) {
           const themeObj = theme === "dark" ? dark : light;
           const match = /language-(\w+)/.exec(className ?? "");
