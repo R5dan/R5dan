@@ -22,6 +22,7 @@ function Copy({ text }: { text: string }) {
         setTimeout(() => setState("idle"), 1000);
       }
     }
+    // @ts-expect-error handleCopy is a valid function
     handleCopy();
   }, [state, text]);
 
@@ -140,7 +141,7 @@ export function Highlighter({
           return <h4 className={className}>{children}</h4>;
         },
         // @ts-expect-error inline is a valid prop
-        code({ inline, className, children, ...props }) {
+        code({ inline, className, children, ...props }: {inline: boolean, className: string, children: string, props: Omit<React.HTMLAttributes<HTMLElement>, "className" | "children">}) {
           const themeObj = theme === "dark" ? dark : light;
           const match = /language-(\w+)/.exec(className ?? "");
           const lang = match ? match[1]! : ("plaintext" as const);

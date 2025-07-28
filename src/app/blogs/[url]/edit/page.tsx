@@ -22,7 +22,6 @@ export default function Page({
   const generateImageUrl = useMutation(api.blogs.uploadImage);
   const updateBlogImage = useMutation(api.blogs.updateBlogImage);
   const imageURL = useQuery(api.blogs.getBlogImage, { id: data?._id });
-  const [image, setImage] = useState<string | null>(null);
   
   if (!data) {
     return <div>Loading</div>;
@@ -66,7 +65,6 @@ export default function Page({
         const fileUrl = await fetchQuery(api.blogs.getBlogImage, {
           id: data._id,
         });
-        setImage(fileUrl);
         return fileUrl
       }}
     />

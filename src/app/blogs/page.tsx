@@ -6,6 +6,7 @@ import { useQuery } from "convex/react";
 import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import { useRouter } from "next/navigation";
 import { useUser } from "@clerk/nextjs";
+import Image from "next/image"; 
 // import Image from "next/image";
 
 function BlogPreview({
@@ -19,7 +20,7 @@ function BlogPreview({
   return (
     <div className="border-4 border-black dark:border-white">
       <button onClick={() => router.push(`/blogs/${blog.url}`)}>
-        {image ? <img alt="Blog image" src={image} /> : <></>}
+        {image ? <Image alt="Blog image" src={image} /> : <></>}
         <div>
           <h2>{blog.title}</h2>
           <p>{blog.description}</p>
