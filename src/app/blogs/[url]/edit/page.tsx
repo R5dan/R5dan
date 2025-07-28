@@ -25,7 +25,7 @@ export default function Page({
   const [image, setImage] = useState<string | null>(null);
   
   if (!data) {
-    return <div>Loading: {data}</div>;
+    return <div>Loading</div>;
   }
 
   async function onSave(
