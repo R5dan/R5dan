@@ -9,8 +9,6 @@ import light from "./light";
 import {
   Clipboard,
   ClipboardCheck,
-  WrapText,
-  AlignLeft,
 } from "lucide-react";
 
 
