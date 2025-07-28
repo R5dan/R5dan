@@ -144,15 +144,14 @@ export function Highlighter({
           const themeObj = theme === "dark" ? dark : light;
           const match = /language-(\w+)/.exec(className ?? "");
           const lang = match ? match[1]! : ("plaintext" as const);
-          const lines = String(children).split("\n")
-          const l1 = lines.length > 1 && lines[0] ? lines[0] : ""
-          const regex = new RegExp("// (.*) \\\\")
-          const file = regex.exec(l1)?.[1] ?? ""
-          let text
+          const lines = String(children).split("\n");
+          const l1 = lines.length > 1 && lines[0] ? lines[0] : "";
+          const regex = new RegExp("// (.*) \\\\");
+          const file = regex.exec(l1)?.[1] ?? "";
+          let text;
           if (file) {
             text = lines.slice(1).join("\n").replace(/\n$/, "");
-          }
-          else {
+          } else {
             text = String(children).replace(/\n$/, "");
           }
 
@@ -169,10 +168,10 @@ export function Highlighter({
                 }}
               >
                 <div className="flex justify-between gap-5">
-                <span className="my-auto text-center font-mono">{lang}</span>
-                <span className="font-mono text-center">{file}</span>
+                  <span className="my-auto text-center font-mono">{lang}</span>
+                  <span className="text-center font-mono">{file}</span>
                 </div>
-                  <div className="flex justify-between gap-5">
+                <div className="flex justify-between gap-5">
                   {/* <WrapLines setWrap={setWrap} wrap={wrap} /> */}
                   <Copy text={String(children).replace(/\n$/, "")} />
                 </div>

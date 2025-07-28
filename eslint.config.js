@@ -33,6 +33,7 @@ export default tseslint.config(
         "error",
         { checksVoidReturn: { attributes: false } },
       ],
+      "@typescript-eslint/no-base-to-string": "off",
     },
   },
   {
