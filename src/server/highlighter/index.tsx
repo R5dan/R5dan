@@ -22,7 +22,6 @@ function Copy({ text }: { text: string }) {
         setTimeout(() => setState("idle"), 1000);
       }
     }
-    // @ts-expect-error handleCopy is a valid function
     handleCopy();
   }, [state, text]);
 

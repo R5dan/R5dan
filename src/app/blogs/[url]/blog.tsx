@@ -6,8 +6,13 @@ import { api } from "../../../../convex/_generated/api";
 import { Highlighter } from "~/server/highlighter";
 import { useTheme } from "~/server/theme";
 import { useUser } from "@clerk/clerk-react";
-import { Select, SelectContent, SelectItem } from "~/components/ui/select";
-import { SelectTrigger, SelectValue } from "@radix-ui/react-select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "~/components/ui/select";
 
 export default function Blog({ url }: { url: string }) {
   console.log("URL", url);
@@ -34,29 +39,37 @@ export default function Blog({ url }: { url: string }) {
 
   return (
     <div className="m-30">
-      <div>
-        <h1 className={`my-5 text-${sizes[size]} font-bold`}>{data.title}</h1>
-        <Select
-          defaultValue="md"
-          value={size}
-          onValueChange={(value) => {
-            // @ts-expect-error value is correct
-            setSize(value);
-          }}
-        >
-          <SelectTrigger>
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="xs">xs</SelectItem>
-            <SelectItem value="sm">sm</SelectItem>
-            <SelectItem value="md">md</SelectItem>
-            <SelectItem value="lg">lg</SelectItem>
-            <SelectItem value="xl">xl</SelectItem>
-          </SelectContent>
-        </Select>
+      <div className="mb-6 flex items-center justify-between">
+        <h1 className={`text-${sizes[size]} font-bold`}>{data.title}</h1>
+        <div className="flex items-center gap-3">
+          <label
+            htmlFor="size-select"
+            className="text-muted-foreground text-sm font-medium"
+          >
+            Text Size:
+          </label>
+          <Select
+            defaultValue="md"
+            value={size}
+            onValueChange={(value) => {
+              // @ts-expect-error value is correct
+              setSize(value);
+            }}
+          >
+            <SelectTrigger className="w-24" id="size-select">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="xs">Extra Small</SelectItem>
+              <SelectItem value="sm">Small</SelectItem>
+              <SelectItem value="md">Medium</SelectItem>
+              <SelectItem value="lg">Large</SelectItem>
+              <SelectItem value="xl">Extra Large</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
       </div>
-      <Highlighter markdown={data.content} theme={theme} size={size} />;
+      <Highlighter markdown={data.content} theme={theme} size={size} />
     </div>
   );
 }

@@ -5,7 +5,6 @@ import { Geist } from "next/font/google";
 import {
   ClerkProvider,
   SignInButton,
-  SignUpButton,
   SignedIn,
   SignedOut,
   UserButton,
@@ -61,7 +60,6 @@ export default function RootLayout({
                         <ThemeToggle />
                         <SignedOut>
                           <SignInButton />
-                          <SignUpButton />
                         </SignedOut>
                         <SignedIn>
                           <UserButton />
