@@ -26,7 +26,16 @@ export default function Blog({ url }: { url: string }) {
   const [size, setSize] = useState<"md" | "xs" | "sm" | "lg" | "xl">("md");
 
   if (!data) {
-    return <div>Loading...</div>;
+    return (
+      <div className="mx-auto max-w-4xl px-6 py-8">
+        <div
+          className="text-center text-lg"
+          style={{ color: theme === "dark" ? "#8b949e" : "#656d76" }}
+        >
+          Loading...
+        </div>
+      </div>
+    );
   }
 
   const sizes = {
@@ -38,13 +47,30 @@ export default function Blog({ url }: { url: string }) {
   };
 
   return (
-    <div className="m-30">
-      <div className="mb-6 flex items-center justify-between">
-        <h1 className={`text-${sizes[size]} font-bold`}>{data.title}</h1>
+    <div className="mx-auto max-w-4xl px-6 py-8">
+      <div className="mb-8 flex items-center justify-between">
+        <h1
+          className={`leading-tight font-bold`}
+          style={{
+            fontSize:
+              sizes[size] === "xl"
+                ? "3rem"
+                : sizes[size] === "lg"
+                  ? "2.5rem"
+                  : sizes[size] === "md"
+                    ? "2rem"
+                    : sizes[size] === "sm"
+                      ? "1.5rem"
+                      : "1.25rem",
+          }}
+        >
+          {data.title}
+        </h1>
         <div className="flex items-center gap-3">
           <label
             htmlFor="size-select"
-            className="text-muted-foreground text-sm font-medium"
+            className="text-sm font-medium"
+            style={{ color: theme === "dark" ? "#8b949e" : "#656d76" }}
           >
             Text Size:
           </label>
@@ -69,7 +95,12 @@ export default function Blog({ url }: { url: string }) {
           </Select>
         </div>
       </div>
-      <Highlighter markdown={data.content} theme={theme} size={size} />
+      <div
+        className="prose prose-lg max-w-none"
+        style={{ color: theme === "dark" ? "#c9d1d9" : "#24292e" }}
+      >
+        <Highlighter markdown={data.content} theme={theme} size={size} />
+      </div>
     </div>
   );
 }
