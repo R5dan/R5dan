@@ -1,0 +1,1 @@
+Most of these are dissected [Lucide react](https://lucide.dev/docs/react) icons.
