@@ -1,6 +1,6 @@
-import type { Id as AuthId } from "../../../../../convex/betterAuth/_generated/dataModel";
-import type { Id } from "../../../../../convex/_generated/dataModel";
-import { api } from "../../../../../convex/_generated/api";
+import type { Id as AuthId } from "../../../../convex/betterAuth/_generated/dataModel";
+import type { Id } from "../../../../convex/_generated/dataModel";
+import { api } from "../../../../convex/_generated/api";
 import { fetchMutation } from "convex/nextjs";
 import { revalidateTag } from "next/cache";
 import type { NextRequest } from "next/server";

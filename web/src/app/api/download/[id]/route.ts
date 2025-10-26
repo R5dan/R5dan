@@ -1,4 +1,4 @@
-import { api } from "../../../../../../convex/_generated/api";
+import { api } from "../../../../../convex/_generated/api";
 import { fetchQuery } from "convex/nextjs";
 import { NextResponse } from "next/server";
 import { getFile } from "~/server/uploadthing";

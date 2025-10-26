@@ -1,3 +1,5 @@
+"use client"
+
 import { useConvexAuth } from "convex/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
