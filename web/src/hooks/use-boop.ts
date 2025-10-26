@@ -1,3 +1,7 @@
+"use client";
+
+// Thanks to Josh Comeau for this
+
 import React from "react";
 import {
   useSpring,
@@ -6,9 +10,7 @@ import {
   type SpringConfig,
 } from "@react-spring/web";
 
-// UPDATE this path to your copy of the hook!
-// Source here: https://joshwcomeau.com/snippets/react-hooks/use-prefers-reduced-motion
-import usePrefersReducedMotion from "web/src/hooks/reduced-motion";
+import usePrefersReducedMotion from "~/hooks/reduced-motion";
 
 export default function useBoop({
   x = 0,

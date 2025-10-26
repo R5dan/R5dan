@@ -3,7 +3,7 @@
 import * as React from "react";
 import * as TabsPrimitive from "@radix-ui/react-tabs";
 
-import { cn } from "web/src/lib/utils";
+import { cn } from "~/lib/utils";
 
 function Tabs({
   className,
@@ -60,6 +60,35 @@ function TabsContent({
       className={cn("flex-1 outline-none", className)}
       {...props}
     />
+  );
+}
+
+type Tab = {
+  title: string;
+  value: string;
+  content: React.ReactNode;
+};
+
+export function TabsHelper({ tabs }: { tabs: Tab[] }) {
+  return (
+    <Tabs>
+      <TabsList>
+        {tabs.map((tab) => {
+          return (
+            <TabsTrigger key={tab.value} value={tab.value}>
+              {tab.title}
+            </TabsTrigger>
+          );
+        })}
+      </TabsList>
+      {tabs.map((tab) => {
+        return (
+          <TabsContent key={tab.value} value={tab.value}>
+            {tab.content}
+          </TabsContent>
+        );
+      })}
+    </Tabs>
   );
 }
 

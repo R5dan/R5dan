@@ -1,20 +1,29 @@
+"use client";
+
 import { useQuery } from "convex/react";
 import { api } from "../../../../convex/_generated/api";
 import type { Id } from "../../../../convex/_generated/dataModel";
+import { CustomMDXClient as CustomMDX } from "~/server/blogs/mdx/client";
 import Blog from "./blog";
-import { CustomMDX } from "~/server/blogs/mdx";
-import { notFound } from "next/navigation";
 
-export default function Client({ id }: { id: Id<"blogs"> }) {
-  const data = useQuery(api.blogs.getBlogById, { id });
-
+export default function Client({
+  deploymentId,
+  blogId,
+}: {
+  blogId: Id<"blogs">;
+  deploymentId: Id<"deployment">;
+}) {
+  const data = useQuery(api.blogs.getBlogDeploymentById, {
+    id: deploymentId,
+    blog: blogId,
+  });
   if (!data) {
-    return notFound();
+    return;
   }
-
+  const { blog, deployment } = data;
   return (
-    <Blog blog={data}>
-      <CustomMDX source={data.content} />
+    <Blog blog={blog} deployment={deployment}>
+      <CustomMDX source={blog.content} />
     </Blog>
   );
 }

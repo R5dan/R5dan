@@ -1,85 +1,96 @@
-import type { JSX } from "react";
+"use client";
+
+import type { ReactNode } from "react";
+import React, { createContext, useContext } from "react";
 import { Tabs } from "@base-ui-components/react/tabs";
-import React from "react";
 
-export function getCodeGroup() {
-  const tabGroups: Record<string, number> = {};
+class Tab {
+  constructor(
+    public label: string,
+    public children: ReactNode,
+  ) {}
+}
 
-  return function CodeGroup({
-    children,
-    id,
-  }: {
-    children: JSX.Element[];
-    id?: keyof typeof tabGroups;
-  }) {
-    let defaultValue: number;
-    let callback: (val: number) => void;
+class Group {
+  public tabs: Tab[] = [];
+  constructor(public activeTab = 1) {}
 
-    if (id) {
-      if (id in tabGroups) {
-        defaultValue = tabGroups[id]!;
-      } else {
-        defaultValue = 0;
-        tabGroups[id] = defaultValue;
-      }
-      callback = (val: number) => {
-        tabGroups[id] = val;
-      };
+  addTab(tab: Tab) {
+    this.tabs.push(tab);
+  }
+
+  setActiveTab(id: number) {
+    this.activeTab = id;
+  }
+}
+
+const GroupsContext = createContext<Record<string, Group>>({});
+const GroupContext = createContext<Group | null>(null);
+
+export function CodeGroup({ id }: { id?: string }) {
+  const ctx = useContext(GroupsContext);
+  let group: Group;
+  if (id) {
+    if (id in ctx) {
+      group = ctx[id]!;
     } else {
-      defaultValue = 0;
-      callback = (val) => {
-        return;
-      };
+      group = new Group();
+      ctx[id] = group;
     }
-    return (
-      <Tabs.Root onValueChange={callback} defaultValue={defaultValue}>
-        <Tabs.List>
-          {children.map((child, index) => {
-            if (React.isValidElement(child)) {
-              return React.cloneElement(child, {
-                // @ts-expect-error all
-                slot: "header",
-              });
-            }
-            return null;
-          })}
-          <Tabs.Indicator />
-        </Tabs.List>
-        {children.map((child, index) => {
-          if (React.isValidElement(child)) {
-            return React.cloneElement(child, {
-              // @ts-expect-error all
-              slot: "contents",
-            });
-          }
-          return null;
-        })}
-      </Tabs.Root>
-    );
-  };
+  } else {
+    group = new Group();
+  }
+
+  return React.createElement(
+    GroupContext.Provider,
+    {
+      value: group,
+    },
+
+    <Tabs.Root
+      value={group.activeTab}
+      onValueChange={(v: number) => group.setActiveTab(v)}
+    >
+      <Tabs.List>
+        {group.tabs.map((tab, i) => (
+          <Tabs.Tab key={i} value={i}>
+            {tab.label}
+          </Tabs.Tab>
+        ))}
+        <Tabs.Indicator />
+      </Tabs.List>
+      {group.tabs.map((tab, i) => (
+        <Tabs.Panel key={i} value={i}>
+          {tab.children}
+        </Tabs.Panel>
+      ))}
+    </Tabs.Root>,
+  );
 }
 
 export function CodeTab({
+  label,
   children,
-  title,
-  icon,
-  slot,
 }: {
-  children: JSX.Element;
-  title: string;
-  icon?: JSX.Element;
-  slot?: "contents" | "header";
+  label: string;
+  children: ReactNode;
 }) {
-  if (!slot) {
-    return null;
+  const group = useContext(GroupContext);
+
+  if (!group) {
+    throw new Error("CodeTab must be used within a CodeGroup");
   }
-  if (slot === "contents") {
-    return <Tabs.Panel value={title}>{children}</Tabs.Panel>;
-  }
-  return (
-    <Tabs.Tab value={title}>
-      {icon ?? <></>}
-      {children}
-    </Tabs.Tab>
+
+  group.addTab(new Tab(label, children));
+  return <></>;
+}
+
+export function CodeGroupContext({ children }: { children: ReactNode }) {
+  return React.createElement(
+    GroupsContext.Provider,
+    {
+      value: {},
+    },
+    children,
   );
 }

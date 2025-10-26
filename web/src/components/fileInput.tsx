@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useRef, type ReactElement } from "react";
 
 export default function FileInput({
@@ -15,7 +17,7 @@ export default function FileInput({
   onClick?: () => void;
   fileTypes?: string[] | string;
 }) {
-  const fileInputRef = useRef(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   return (
     <div className="my-auto flex items-center gap-4">
@@ -39,9 +41,7 @@ export default function FileInput({
         type="button"
         onClick={() => {
           onClick();
-          (
-            fileInputRef.current as ReactElement<HTMLInputElement, "input">
-          ).click();
+          fileInputRef.current!.click();
         }}
       >
         {children}

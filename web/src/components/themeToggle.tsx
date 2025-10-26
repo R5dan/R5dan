@@ -23,41 +23,50 @@ export function ThemeToggle() {
   return (
     <div className="dark:border-muted-foreground dark:bg-muted-foreground flex items-center gap-2 rounded-lg border border-gray-200 bg-white p-1">
       <TooltipProvider>
-        <Tooltip contents="Light Mode">
-          <button
-            onClick={() => setTheme("light")}
-            className={`rounded-md p-2 transition-colors ${
-              theme === "light"
-                ? "bg-gray-500 text-gray-900 dark:bg-gray-700 dark:text-gray-100"
-                : "text-black hover:text-gray-900 dark:text-black dark:hover:text-white"
-            }`}
-          >
-            <Sun className="h-4 w-4" />
-          </button>
+        <Tooltip
+          contents="Light Mode"
+          props={{
+            popup: {
+              onClick: () => setTheme("light"),
+              className: `rounded-md p-2 transition-colors ${
+                theme === "light"
+                  ? "bg-gray-500 text-gray-900 dark:bg-gray-700 dark:text-gray-100"
+                  : "text-black hover:text-gray-900 dark:text-black dark:hover:text-white"
+              }`,
+            },
+          }}
+        >
+          <Sun className="h-4 w-4" />
         </Tooltip>
-        <Tooltip contents="Dark Mode">
-          <button
-            onClick={() => setTheme("dark")}
-            className={`rounded-md p-2 transition-colors ${
-              theme === "dark"
-                ? "bg-gray-100 text-gray-900 dark:bg-gray-700 dark:text-white"
-                : "text-black hover:text-gray-900 dark:text-black dark:hover:text-white"
-            }`}
-          >
-            <Moon className="h-4 w-4" />
-          </button>
+        <Tooltip
+          contents="Dark Mode"
+          props={{
+            popup: {
+              onClick: () => setTheme("dark"),
+              className: `rounded-md p-2 transition-colors ${
+                theme === "dark"
+                  ? "bg-gray-100 text-gray-900 dark:bg-gray-700 dark:text-white"
+                  : "text-black hover:text-gray-900 dark:text-black dark:hover:text-white"
+              }`,
+            },
+          }}
+        >
+          <Moon className="h-4 w-4" />
         </Tooltip>
-        <Tooltip contents="System Mode">
-          <button
-            onClick={() => setTheme("system")}
-            className={`rounded-md p-2 transition-colors ${
-              theme === "system"
-                ? "bg-gray-100 text-gray-900 dark:bg-gray-700 dark:text-gray-100"
-                : "text-black hover:text-gray-900 dark:text-black dark:hover:text-white"
-            }`}
-          >
-            <Monitor className="h-4 w-4" />
-          </button>
+        <Tooltip
+          contents="System Mode"
+          props={{
+            popup: {
+              onClick: () => setTheme("system"),
+              className: `rounded-md p-2 transition-colors ${
+                theme === "system"
+                  ? "bg-gray-100 text-gray-900 dark:bg-gray-700 dark:text-gray-100"
+                  : "text-black hover:text-gray-900 dark:text-black dark:hover:text-white"
+              }`,
+            },
+          }}
+        >
+          <Monitor className="h-4 w-4" />
         </Tooltip>
       </TooltipProvider>
     </div>

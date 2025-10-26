@@ -14,11 +14,9 @@ import type * as betterAuth__generated_server from "../betterAuth/_generated/ser
 import type * as betterAuth_adapter from "../betterAuth/adapter.js";
 import type * as betterAuth_auth from "../betterAuth/auth.js";
 import type * as blogs from "../blogs.js";
-import type * as comments from "../comments.js";
 import type * as http from "../http.js";
-import type * as migration from "../migration.js";
 import type * as storage from "../storage.js";
-import type * as user from "../user.js";
+import type * as todos from "../todos.js";
 
 import type {
   ApiFromModules,
@@ -41,11 +39,9 @@ declare const fullApi: ApiFromModules<{
   "betterAuth/adapter": typeof betterAuth_adapter;
   "betterAuth/auth": typeof betterAuth_auth;
   blogs: typeof blogs;
-  comments: typeof comments;
   http: typeof http;
-  migration: typeof migration;
   storage: typeof storage;
-  user: typeof user;
+  todos: typeof todos;
 }>;
 declare const fullApiWithMounts: typeof fullApi;
 
@@ -221,6 +217,45 @@ export declare const components: {
             | {
                 data: { backupCodes: string; secret: string; userId: string };
                 model: "twoFactor";
+              }
+            | {
+                data: {
+                  createdAt: number;
+                  enabled?: null | boolean;
+                  expiresAt?: null | number;
+                  key: string;
+                  lastRefillAt?: null | number;
+                  lastRequest?: null | number;
+                  metadata?: null | string;
+                  name?: null | string;
+                  permissions?: null | string;
+                  prefix?: null | string;
+                  rateLimitEnabled?: null | boolean;
+                  rateLimitMax?: null | number;
+                  rateLimitTimeWindow?: null | number;
+                  refillAmount?: null | number;
+                  refillInterval?: null | number;
+                  remaining?: null | number;
+                  requestCount?: null | number;
+                  start?: null | string;
+                  updatedAt: number;
+                  userId: string;
+                };
+                model: "apikey";
+              }
+            | {
+                data: {
+                  clientId?: null | string;
+                  deviceCode: string;
+                  expiresAt: number;
+                  lastPolledAt?: null | number;
+                  pollingInterval?: null | number;
+                  scope?: null | string;
+                  status: string;
+                  userCode: string;
+                  userId?: null | string;
+                };
+                model: "deviceCode";
               };
           onCreateHandle?: string;
           select?: Array<string>;
@@ -251,7 +286,7 @@ export declare const components: {
                     | "banReason"
                     | "banExpires"
                     | "twoFactorEnabled"
-                    | "id";
+                    | "_id";
                   operator?:
                     | "lt"
                     | "lte"
@@ -259,6 +294,7 @@ export declare const components: {
                     | "gte"
                     | "eq"
                     | "in"
+                    | "not_in"
                     | "ne"
                     | "contains"
                     | "starts_with"
@@ -285,7 +321,7 @@ export declare const components: {
                     | "userAgent"
                     | "userId"
                     | "impersonatedBy"
-                    | "id";
+                    | "_id";
                   operator?:
                     | "lt"
                     | "lte"
@@ -293,6 +329,7 @@ export declare const components: {
                     | "gte"
                     | "eq"
                     | "in"
+                    | "not_in"
                     | "ne"
                     | "contains"
                     | "starts_with"
@@ -323,7 +360,7 @@ export declare const components: {
                     | "password"
                     | "createdAt"
                     | "updatedAt"
-                    | "id";
+                    | "_id";
                   operator?:
                     | "lt"
                     | "lte"
@@ -331,6 +368,7 @@ export declare const components: {
                     | "gte"
                     | "eq"
                     | "in"
+                    | "not_in"
                     | "ne"
                     | "contains"
                     | "starts_with"
@@ -354,7 +392,7 @@ export declare const components: {
                     | "expiresAt"
                     | "createdAt"
                     | "updatedAt"
-                    | "id";
+                    | "_id";
                   operator?:
                     | "lt"
                     | "lte"
@@ -362,6 +400,7 @@ export declare const components: {
                     | "gte"
                     | "eq"
                     | "in"
+                    | "not_in"
                     | "ne"
                     | "contains"
                     | "starts_with"
@@ -379,7 +418,7 @@ export declare const components: {
                 model: "jwks";
                 where?: Array<{
                   connector?: "AND" | "OR";
-                  field: "publicKey" | "privateKey" | "createdAt" | "id";
+                  field: "publicKey" | "privateKey" | "createdAt" | "_id";
                   operator?:
                     | "lt"
                     | "lte"
@@ -387,6 +426,7 @@ export declare const components: {
                     | "gte"
                     | "eq"
                     | "in"
+                    | "not_in"
                     | "ne"
                     | "contains"
                     | "starts_with"
@@ -404,7 +444,7 @@ export declare const components: {
                 model: "twoFactor";
                 where?: Array<{
                   connector?: "AND" | "OR";
-                  field: "secret" | "backupCodes" | "userId" | "id";
+                  field: "secret" | "backupCodes" | "userId" | "_id";
                   operator?:
                     | "lt"
                     | "lte"
@@ -412,6 +452,90 @@ export declare const components: {
                     | "gte"
                     | "eq"
                     | "in"
+                    | "not_in"
+                    | "ne"
+                    | "contains"
+                    | "starts_with"
+                    | "ends_with";
+                  value:
+                    | string
+                    | number
+                    | boolean
+                    | Array<string>
+                    | Array<number>
+                    | null;
+                }>;
+              }
+            | {
+                model: "apikey";
+                where?: Array<{
+                  connector?: "AND" | "OR";
+                  field:
+                    | "name"
+                    | "start"
+                    | "prefix"
+                    | "key"
+                    | "userId"
+                    | "refillInterval"
+                    | "refillAmount"
+                    | "lastRefillAt"
+                    | "enabled"
+                    | "rateLimitEnabled"
+                    | "rateLimitTimeWindow"
+                    | "rateLimitMax"
+                    | "requestCount"
+                    | "remaining"
+                    | "lastRequest"
+                    | "expiresAt"
+                    | "createdAt"
+                    | "updatedAt"
+                    | "permissions"
+                    | "metadata"
+                    | "_id";
+                  operator?:
+                    | "lt"
+                    | "lte"
+                    | "gt"
+                    | "gte"
+                    | "eq"
+                    | "in"
+                    | "not_in"
+                    | "ne"
+                    | "contains"
+                    | "starts_with"
+                    | "ends_with";
+                  value:
+                    | string
+                    | number
+                    | boolean
+                    | Array<string>
+                    | Array<number>
+                    | null;
+                }>;
+              }
+            | {
+                model: "deviceCode";
+                where?: Array<{
+                  connector?: "AND" | "OR";
+                  field:
+                    | "deviceCode"
+                    | "userCode"
+                    | "userId"
+                    | "expiresAt"
+                    | "status"
+                    | "lastPolledAt"
+                    | "pollingInterval"
+                    | "clientId"
+                    | "scope"
+                    | "_id";
+                  operator?:
+                    | "lt"
+                    | "lte"
+                    | "gt"
+                    | "gte"
+                    | "eq"
+                    | "in"
+                    | "not_in"
                     | "ne"
                     | "contains"
                     | "starts_with"
@@ -461,7 +585,7 @@ export declare const components: {
                     | "banReason"
                     | "banExpires"
                     | "twoFactorEnabled"
-                    | "id";
+                    | "_id";
                   operator?:
                     | "lt"
                     | "lte"
@@ -469,6 +593,7 @@ export declare const components: {
                     | "gte"
                     | "eq"
                     | "in"
+                    | "not_in"
                     | "ne"
                     | "contains"
                     | "starts_with"
@@ -495,7 +620,7 @@ export declare const components: {
                     | "userAgent"
                     | "userId"
                     | "impersonatedBy"
-                    | "id";
+                    | "_id";
                   operator?:
                     | "lt"
                     | "lte"
@@ -503,6 +628,7 @@ export declare const components: {
                     | "gte"
                     | "eq"
                     | "in"
+                    | "not_in"
                     | "ne"
                     | "contains"
                     | "starts_with"
@@ -533,7 +659,7 @@ export declare const components: {
                     | "password"
                     | "createdAt"
                     | "updatedAt"
-                    | "id";
+                    | "_id";
                   operator?:
                     | "lt"
                     | "lte"
@@ -541,6 +667,7 @@ export declare const components: {
                     | "gte"
                     | "eq"
                     | "in"
+                    | "not_in"
                     | "ne"
                     | "contains"
                     | "starts_with"
@@ -564,7 +691,7 @@ export declare const components: {
                     | "expiresAt"
                     | "createdAt"
                     | "updatedAt"
-                    | "id";
+                    | "_id";
                   operator?:
                     | "lt"
                     | "lte"
@@ -572,6 +699,7 @@ export declare const components: {
                     | "gte"
                     | "eq"
                     | "in"
+                    | "not_in"
                     | "ne"
                     | "contains"
                     | "starts_with"
@@ -589,7 +717,7 @@ export declare const components: {
                 model: "jwks";
                 where?: Array<{
                   connector?: "AND" | "OR";
-                  field: "publicKey" | "privateKey" | "createdAt" | "id";
+                  field: "publicKey" | "privateKey" | "createdAt" | "_id";
                   operator?:
                     | "lt"
                     | "lte"
@@ -597,6 +725,7 @@ export declare const components: {
                     | "gte"
                     | "eq"
                     | "in"
+                    | "not_in"
                     | "ne"
                     | "contains"
                     | "starts_with"
@@ -614,7 +743,7 @@ export declare const components: {
                 model: "twoFactor";
                 where?: Array<{
                   connector?: "AND" | "OR";
-                  field: "secret" | "backupCodes" | "userId" | "id";
+                  field: "secret" | "backupCodes" | "userId" | "_id";
                   operator?:
                     | "lt"
                     | "lte"
@@ -622,6 +751,90 @@ export declare const components: {
                     | "gte"
                     | "eq"
                     | "in"
+                    | "not_in"
+                    | "ne"
+                    | "contains"
+                    | "starts_with"
+                    | "ends_with";
+                  value:
+                    | string
+                    | number
+                    | boolean
+                    | Array<string>
+                    | Array<number>
+                    | null;
+                }>;
+              }
+            | {
+                model: "apikey";
+                where?: Array<{
+                  connector?: "AND" | "OR";
+                  field:
+                    | "name"
+                    | "start"
+                    | "prefix"
+                    | "key"
+                    | "userId"
+                    | "refillInterval"
+                    | "refillAmount"
+                    | "lastRefillAt"
+                    | "enabled"
+                    | "rateLimitEnabled"
+                    | "rateLimitTimeWindow"
+                    | "rateLimitMax"
+                    | "requestCount"
+                    | "remaining"
+                    | "lastRequest"
+                    | "expiresAt"
+                    | "createdAt"
+                    | "updatedAt"
+                    | "permissions"
+                    | "metadata"
+                    | "_id";
+                  operator?:
+                    | "lt"
+                    | "lte"
+                    | "gt"
+                    | "gte"
+                    | "eq"
+                    | "in"
+                    | "not_in"
+                    | "ne"
+                    | "contains"
+                    | "starts_with"
+                    | "ends_with";
+                  value:
+                    | string
+                    | number
+                    | boolean
+                    | Array<string>
+                    | Array<number>
+                    | null;
+                }>;
+              }
+            | {
+                model: "deviceCode";
+                where?: Array<{
+                  connector?: "AND" | "OR";
+                  field:
+                    | "deviceCode"
+                    | "userCode"
+                    | "userId"
+                    | "expiresAt"
+                    | "status"
+                    | "lastPolledAt"
+                    | "pollingInterval"
+                    | "clientId"
+                    | "scope"
+                    | "_id";
+                  operator?:
+                    | "lt"
+                    | "lte"
+                    | "gt"
+                    | "gte"
+                    | "eq"
+                    | "in"
+                    | "not_in"
                     | "ne"
                     | "contains"
                     | "starts_with"
@@ -650,7 +863,9 @@ export declare const components: {
             | "account"
             | "verification"
             | "jwks"
-            | "twoFactor";
+            | "twoFactor"
+            | "apikey"
+            | "deviceCode";
           offset?: number;
           paginationOpts: {
             cursor: string | null;
@@ -671,6 +886,7 @@ export declare const components: {
               | "gte"
               | "eq"
               | "in"
+              | "not_in"
               | "ne"
               | "contains"
               | "starts_with"
@@ -696,7 +912,9 @@ export declare const components: {
             | "account"
             | "verification"
             | "jwks"
-            | "twoFactor";
+            | "twoFactor"
+            | "apikey"
+            | "deviceCode";
           select?: Array<string>;
           where?: Array<{
             connector?: "AND" | "OR";
@@ -708,6 +926,7 @@ export declare const components: {
               | "gte"
               | "eq"
               | "in"
+              | "not_in"
               | "ne"
               | "contains"
               | "starts_with"
@@ -763,7 +982,7 @@ export declare const components: {
                     | "banReason"
                     | "banExpires"
                     | "twoFactorEnabled"
-                    | "id";
+                    | "_id";
                   operator?:
                     | "lt"
                     | "lte"
@@ -771,6 +990,7 @@ export declare const components: {
                     | "gte"
                     | "eq"
                     | "in"
+                    | "not_in"
                     | "ne"
                     | "contains"
                     | "starts_with"
@@ -807,7 +1027,7 @@ export declare const components: {
                     | "userAgent"
                     | "userId"
                     | "impersonatedBy"
-                    | "id";
+                    | "_id";
                   operator?:
                     | "lt"
                     | "lte"
@@ -815,6 +1035,7 @@ export declare const components: {
                     | "gte"
                     | "eq"
                     | "in"
+                    | "not_in"
                     | "ne"
                     | "contains"
                     | "starts_with"
@@ -859,7 +1080,7 @@ export declare const components: {
                     | "password"
                     | "createdAt"
                     | "updatedAt"
-                    | "id";
+                    | "_id";
                   operator?:
                     | "lt"
                     | "lte"
@@ -867,6 +1088,7 @@ export declare const components: {
                     | "gte"
                     | "eq"
                     | "in"
+                    | "not_in"
                     | "ne"
                     | "contains"
                     | "starts_with"
@@ -897,7 +1119,7 @@ export declare const components: {
                     | "expiresAt"
                     | "createdAt"
                     | "updatedAt"
-                    | "id";
+                    | "_id";
                   operator?:
                     | "lt"
                     | "lte"
@@ -905,6 +1127,7 @@ export declare const components: {
                     | "gte"
                     | "eq"
                     | "in"
+                    | "not_in"
                     | "ne"
                     | "contains"
                     | "starts_with"
@@ -927,7 +1150,7 @@ export declare const components: {
                 };
                 where?: Array<{
                   connector?: "AND" | "OR";
-                  field: "publicKey" | "privateKey" | "createdAt" | "id";
+                  field: "publicKey" | "privateKey" | "createdAt" | "_id";
                   operator?:
                     | "lt"
                     | "lte"
@@ -935,6 +1158,7 @@ export declare const components: {
                     | "gte"
                     | "eq"
                     | "in"
+                    | "not_in"
                     | "ne"
                     | "contains"
                     | "starts_with"
@@ -957,7 +1181,7 @@ export declare const components: {
                 };
                 where?: Array<{
                   connector?: "AND" | "OR";
-                  field: "secret" | "backupCodes" | "userId" | "id";
+                  field: "secret" | "backupCodes" | "userId" | "_id";
                   operator?:
                     | "lt"
                     | "lte"
@@ -965,6 +1189,123 @@ export declare const components: {
                     | "gte"
                     | "eq"
                     | "in"
+                    | "not_in"
+                    | "ne"
+                    | "contains"
+                    | "starts_with"
+                    | "ends_with";
+                  value:
+                    | string
+                    | number
+                    | boolean
+                    | Array<string>
+                    | Array<number>
+                    | null;
+                }>;
+              }
+            | {
+                model: "apikey";
+                update: {
+                  createdAt?: number;
+                  enabled?: null | boolean;
+                  expiresAt?: null | number;
+                  key?: string;
+                  lastRefillAt?: null | number;
+                  lastRequest?: null | number;
+                  metadata?: null | string;
+                  name?: null | string;
+                  permissions?: null | string;
+                  prefix?: null | string;
+                  rateLimitEnabled?: null | boolean;
+                  rateLimitMax?: null | number;
+                  rateLimitTimeWindow?: null | number;
+                  refillAmount?: null | number;
+                  refillInterval?: null | number;
+                  remaining?: null | number;
+                  requestCount?: null | number;
+                  start?: null | string;
+                  updatedAt?: number;
+                  userId?: string;
+                };
+                where?: Array<{
+                  connector?: "AND" | "OR";
+                  field:
+                    | "name"
+                    | "start"
+                    | "prefix"
+                    | "key"
+                    | "userId"
+                    | "refillInterval"
+                    | "refillAmount"
+                    | "lastRefillAt"
+                    | "enabled"
+                    | "rateLimitEnabled"
+                    | "rateLimitTimeWindow"
+                    | "rateLimitMax"
+                    | "requestCount"
+                    | "remaining"
+                    | "lastRequest"
+                    | "expiresAt"
+                    | "createdAt"
+                    | "updatedAt"
+                    | "permissions"
+                    | "metadata"
+                    | "_id";
+                  operator?:
+                    | "lt"
+                    | "lte"
+                    | "gt"
+                    | "gte"
+                    | "eq"
+                    | "in"
+                    | "not_in"
+                    | "ne"
+                    | "contains"
+                    | "starts_with"
+                    | "ends_with";
+                  value:
+                    | string
+                    | number
+                    | boolean
+                    | Array<string>
+                    | Array<number>
+                    | null;
+                }>;
+              }
+            | {
+                model: "deviceCode";
+                update: {
+                  clientId?: null | string;
+                  deviceCode?: string;
+                  expiresAt?: number;
+                  lastPolledAt?: null | number;
+                  pollingInterval?: null | number;
+                  scope?: null | string;
+                  status?: string;
+                  userCode?: string;
+                  userId?: null | string;
+                };
+                where?: Array<{
+                  connector?: "AND" | "OR";
+                  field:
+                    | "deviceCode"
+                    | "userCode"
+                    | "userId"
+                    | "expiresAt"
+                    | "status"
+                    | "lastPolledAt"
+                    | "pollingInterval"
+                    | "clientId"
+                    | "scope"
+                    | "_id";
+                  operator?:
+                    | "lt"
+                    | "lte"
+                    | "gt"
+                    | "gte"
+                    | "eq"
+                    | "in"
+                    | "not_in"
                     | "ne"
                     | "contains"
                     | "starts_with"
@@ -1030,7 +1371,7 @@ export declare const components: {
                     | "banReason"
                     | "banExpires"
                     | "twoFactorEnabled"
-                    | "id";
+                    | "_id";
                   operator?:
                     | "lt"
                     | "lte"
@@ -1038,6 +1379,7 @@ export declare const components: {
                     | "gte"
                     | "eq"
                     | "in"
+                    | "not_in"
                     | "ne"
                     | "contains"
                     | "starts_with"
@@ -1074,7 +1416,7 @@ export declare const components: {
                     | "userAgent"
                     | "userId"
                     | "impersonatedBy"
-                    | "id";
+                    | "_id";
                   operator?:
                     | "lt"
                     | "lte"
@@ -1082,6 +1424,7 @@ export declare const components: {
                     | "gte"
                     | "eq"
                     | "in"
+                    | "not_in"
                     | "ne"
                     | "contains"
                     | "starts_with"
@@ -1126,7 +1469,7 @@ export declare const components: {
                     | "password"
                     | "createdAt"
                     | "updatedAt"
-                    | "id";
+                    | "_id";
                   operator?:
                     | "lt"
                     | "lte"
@@ -1134,6 +1477,7 @@ export declare const components: {
                     | "gte"
                     | "eq"
                     | "in"
+                    | "not_in"
                     | "ne"
                     | "contains"
                     | "starts_with"
@@ -1164,7 +1508,7 @@ export declare const components: {
                     | "expiresAt"
                     | "createdAt"
                     | "updatedAt"
-                    | "id";
+                    | "_id";
                   operator?:
                     | "lt"
                     | "lte"
@@ -1172,6 +1516,7 @@ export declare const components: {
                     | "gte"
                     | "eq"
                     | "in"
+                    | "not_in"
                     | "ne"
                     | "contains"
                     | "starts_with"
@@ -1194,7 +1539,7 @@ export declare const components: {
                 };
                 where?: Array<{
                   connector?: "AND" | "OR";
-                  field: "publicKey" | "privateKey" | "createdAt" | "id";
+                  field: "publicKey" | "privateKey" | "createdAt" | "_id";
                   operator?:
                     | "lt"
                     | "lte"
@@ -1202,6 +1547,7 @@ export declare const components: {
                     | "gte"
                     | "eq"
                     | "in"
+                    | "not_in"
                     | "ne"
                     | "contains"
                     | "starts_with"
@@ -1224,7 +1570,7 @@ export declare const components: {
                 };
                 where?: Array<{
                   connector?: "AND" | "OR";
-                  field: "secret" | "backupCodes" | "userId" | "id";
+                  field: "secret" | "backupCodes" | "userId" | "_id";
                   operator?:
                     | "lt"
                     | "lte"
@@ -1232,6 +1578,123 @@ export declare const components: {
                     | "gte"
                     | "eq"
                     | "in"
+                    | "not_in"
+                    | "ne"
+                    | "contains"
+                    | "starts_with"
+                    | "ends_with";
+                  value:
+                    | string
+                    | number
+                    | boolean
+                    | Array<string>
+                    | Array<number>
+                    | null;
+                }>;
+              }
+            | {
+                model: "apikey";
+                update: {
+                  createdAt?: number;
+                  enabled?: null | boolean;
+                  expiresAt?: null | number;
+                  key?: string;
+                  lastRefillAt?: null | number;
+                  lastRequest?: null | number;
+                  metadata?: null | string;
+                  name?: null | string;
+                  permissions?: null | string;
+                  prefix?: null | string;
+                  rateLimitEnabled?: null | boolean;
+                  rateLimitMax?: null | number;
+                  rateLimitTimeWindow?: null | number;
+                  refillAmount?: null | number;
+                  refillInterval?: null | number;
+                  remaining?: null | number;
+                  requestCount?: null | number;
+                  start?: null | string;
+                  updatedAt?: number;
+                  userId?: string;
+                };
+                where?: Array<{
+                  connector?: "AND" | "OR";
+                  field:
+                    | "name"
+                    | "start"
+                    | "prefix"
+                    | "key"
+                    | "userId"
+                    | "refillInterval"
+                    | "refillAmount"
+                    | "lastRefillAt"
+                    | "enabled"
+                    | "rateLimitEnabled"
+                    | "rateLimitTimeWindow"
+                    | "rateLimitMax"
+                    | "requestCount"
+                    | "remaining"
+                    | "lastRequest"
+                    | "expiresAt"
+                    | "createdAt"
+                    | "updatedAt"
+                    | "permissions"
+                    | "metadata"
+                    | "_id";
+                  operator?:
+                    | "lt"
+                    | "lte"
+                    | "gt"
+                    | "gte"
+                    | "eq"
+                    | "in"
+                    | "not_in"
+                    | "ne"
+                    | "contains"
+                    | "starts_with"
+                    | "ends_with";
+                  value:
+                    | string
+                    | number
+                    | boolean
+                    | Array<string>
+                    | Array<number>
+                    | null;
+                }>;
+              }
+            | {
+                model: "deviceCode";
+                update: {
+                  clientId?: null | string;
+                  deviceCode?: string;
+                  expiresAt?: number;
+                  lastPolledAt?: null | number;
+                  pollingInterval?: null | number;
+                  scope?: null | string;
+                  status?: string;
+                  userCode?: string;
+                  userId?: null | string;
+                };
+                where?: Array<{
+                  connector?: "AND" | "OR";
+                  field:
+                    | "deviceCode"
+                    | "userCode"
+                    | "userId"
+                    | "expiresAt"
+                    | "status"
+                    | "lastPolledAt"
+                    | "pollingInterval"
+                    | "clientId"
+                    | "scope"
+                    | "_id";
+                  operator?:
+                    | "lt"
+                    | "lte"
+                    | "gt"
+                    | "gte"
+                    | "eq"
+                    | "in"
+                    | "not_in"
                     | "ne"
                     | "contains"
                     | "starts_with"

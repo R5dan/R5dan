@@ -3,9 +3,11 @@ import {
   usernameClient,
   adminClient,
   twoFactorClient,
+  apiKeyClient,
 } from "better-auth/client/plugins";
 import { convexClient } from "@convex-dev/better-auth/client/plugins";
 import { ac, admin, reviewer } from "./permisions";
+import { deviceAuthorizationClient } from "better-auth/plugins";
 
 export const authClient = createAuthClient({
   plugins: [
@@ -19,5 +21,9 @@ export const authClient = createAuthClient({
       },
     }),
     twoFactorClient(),
+    apiKeyClient(),
+    deviceAuthorizationClient(),
   ],
 });
+
+export const { signIn, signUp } = authClient;

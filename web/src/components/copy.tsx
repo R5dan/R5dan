@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState, type JSX } from "react";
 import Boop from "./boop";
 import { toast } from "sonner";
@@ -18,9 +20,9 @@ export default function Copy({
   from = <Clipboard className="h-5 w-5" />,
 }: {
   text: string;
-  className: string;
-  to: JSX.Element;
-  from: JSX.Element;
+  className?: string;
+  to?: JSX.Element;
+  from?: JSX.Element;
 }) {
   const [copying, setCopying] = useState(false);
   const [copied, setCopied] = useState(false);

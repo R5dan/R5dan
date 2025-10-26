@@ -2,7 +2,7 @@
  * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially useful
  * for Docker builds.
  */
-import "./srv/env.js";
+import "./src/env.js";
 
 /** @type {import("next").NextConfig} */
 const config = {
@@ -12,11 +12,17 @@ const config = {
   typescript: {
     ignoreBuildErrors: true,
   },
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
+  cacheComponents: true,
   experimental: {
-    cacheComponents: true,
+    cacheLife: {
+      year: {
+        stale: 60 * 60 * 24 * 365,
+      },
+    },
+  },
+  reactCompiler: true,
+  turbopack: {
+    root: ".",
   },
 };
 

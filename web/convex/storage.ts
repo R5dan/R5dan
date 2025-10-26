@@ -7,6 +7,47 @@ const ERROR_CODES = {
   Unauthorized: "Unauthorized",
 };
 
+export const getFileFromId = query({
+  args: {
+    id: v.id("storage"),
+  },
+  handler: async (ctx, args) => {
+    const promises = [
+      authComponent.getAuth(createAuth, ctx),
+      authComponent.safeGetAuthUser(ctx),
+    ] as const;
+    const file = await ctx.db.get(args.id);
+    if (!file) {
+      throw new Error("File not found");
+    }
+    if (!file.users) {
+      return file;
+    }
+
+    const [{ auth }, user] = await Promise.all(promises);
+    if (!auth || !user) {
+      throw new Error(ERROR_CODES.Unauthenticated);
+    }
+    if (
+      !(
+        file.users.includes(user._id) ||
+        (await auth.api.userHasPermission({
+          body: {
+            userId: user._id,
+            permission: {
+              storage: ["read"],
+            },
+          },
+        }))
+      )
+    ) {
+      throw new Error(ERROR_CODES.Unauthorized);
+    }
+
+    return file;
+  },
+});
+
 export const getFile = query({
   args: {
     fileKey: v.string(),

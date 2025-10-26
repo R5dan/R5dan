@@ -1,4 +1,6 @@
-import { codeToHtml, type BundledLanguage, type ShikiTransformer } from "shiki";
+"use client";
+
+import { type BundledLanguage, type ShikiTransformer } from "shiki";
 import { transformerTwoslash } from "@shikijs/twoslash";
 import {
   transformerNotationDiff,
@@ -6,6 +8,11 @@ import {
   transformerNotationFocus,
 } from "@shikijs/transformers";
 import Download from "./download";
+import Copy from "./copy";
+import { toJsxRuntime } from "hast-util-to-jsx-runtime";
+import { Fragment, useEffect, useState, type JSX } from "react";
+import { jsx, jsxs } from "react/jsx-runtime";
+import { highlighter } from "~/server/blogs/shiki";
 
 type Props = {
   children: string;
@@ -72,7 +79,7 @@ function transformerLineNumbers({
   } satisfies ShikiTransformer;
 }
 
-export default async function CodeBlock({
+export default function CodeBlock({
   children,
   lang,
   mime,
@@ -84,25 +91,40 @@ export default async function CodeBlock({
   showHeader = true,
   showLanguage = true,
 }: Props) {
-  const code = await codeToHtml(children, {
-    lang,
-    themes: { light: "github", dark: "github-dark" },
-    transformers: [
-      transformerTwoslash({
-        explicitTrigger: true,
-      }),
-      transformerNotationDiff(),
-      transformerNotationHighlight(),
-      transformerNotationFocus(),
-      showLineNumbers
-        ? transformerLineNumbers({
-            start: 1,
-            skip: 1,
-            diffs: true,
-          })
-        : {},
-    ],
-  });
+  const [html, setHTML] = useState<JSX.Element>();
+  useEffect(() => {
+    void highlighter
+      .then((highlighter) =>
+        highlighter.codeToHast(children, {
+          lang,
+          themes: { light: "github", dark: "github-dark" },
+          transformers: [
+            transformerTwoslash({
+              explicitTrigger: true,
+            }),
+            transformerNotationDiff(),
+            transformerNotationHighlight(),
+            transformerNotationFocus(),
+            showLineNumbers
+              ? transformerLineNumbers({
+                  start: 1,
+                  skip: 1,
+                  diffs: true,
+                })
+              : {},
+          ],
+        }),
+      )
+      .then((hast) =>
+        setHTML(
+          toJsxRuntime(hast, {
+            Fragment,
+            jsx,
+            jsxs,
+          }) as JSX.Element,
+        ),
+      );
+  }, [children, lang, showLineNumbers]);
 
   return (
     <div
@@ -113,7 +135,7 @@ export default async function CodeBlock({
         <div className="text-s center flex justify-between rounded-t-md border-8 border-[#1f2938] bg-[#1f2938] text-gray-500">
           <span className="my-auto text-center font-mono">{lang}</span>
           <div className="flex justify-between gap-5">
-            {showDownloadButton && <Download />}
+            {showDownloadButton && <Download id={"abc"} />}
             {showCopyButton && (
               <Copy text={String(children).replace(/\n$/, "")} />
             )}
@@ -122,7 +144,7 @@ export default async function CodeBlock({
       )}
       <div className="rounded-b-md border-8">
         {showCopyButton && <Copy text={String(children).replace(/\n$/, "")} />}
-        {code}
+        {html}
       </div>
     </div>
   );

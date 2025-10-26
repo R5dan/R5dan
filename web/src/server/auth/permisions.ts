@@ -1,5 +1,5 @@
 import { createAccessControl } from "better-auth/plugins/access";
-import { adminAc, defaultStatements } from "better-auth/plugins";
+import { defaultStatements, adminAc } from "better-auth/plugins/admin/access";
 
 export const statement = {
   blogs: ["create", "read", "update"], // <-- Permissions available for created roles

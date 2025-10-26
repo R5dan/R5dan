@@ -1,4 +1,4 @@
-import useBoop from "web/src/hooks/use-boop";
+import useBoop from "~/hooks/use-boop";
 
 export default function useAngledBoop({
   index,

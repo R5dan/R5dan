@@ -1,3 +1,5 @@
+"use client";
+
 import type React from "react";
 import useBoop from "~/hooks/use-boop";
 import { animated } from "@react-spring/web";

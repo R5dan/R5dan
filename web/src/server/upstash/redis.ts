@@ -1,5 +1,5 @@
 import { Redis } from "@upstash/redis";
-import env from "web/src/env";
+import env from "~/env";
 import { ok, err, type Result, type Ok } from "neverthrow";
 import type { z } from "zod";
 import {
@@ -8,7 +8,7 @@ import {
   KEYS_ORDER,
   LAST_KEY_CHAR,
   FIRST_KEY,
-} from "web/src/server/upstash/types";
+} from "~/server/upstash/types";
 
 export const REDIS_CLIENT = new Redis({
   url: env.UPSTASH_REDIS_URL,

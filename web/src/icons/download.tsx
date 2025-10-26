@@ -6,9 +6,9 @@ import {
   easings,
 } from "@react-spring/web";
 import { ArrowDown, Check } from "lucide-react";
-import Transition from "web/src/components/transition";
+import Transition from "~/components/transition";
 import DownloadUnderline from "./download-underline";
-import useBoop from "web/src/hooks/use-boop";
+import useBoop from "~/hooks/use-boop";
 import DownloadArrow from "./download-arrow";
 
 type Props = {

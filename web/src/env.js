@@ -10,7 +10,6 @@ export default createEnv({
     NODE_ENV: z.enum(["development", "test", "production"]),
     UPSTASH_REDIS_URL: z.string(),
     UPSTASH_REDIS_PASSWORD: z.string(),
-    CLERK_SECRET_KEY: z.string(),
     UPLOADTHING_TOKEN: z.string(),
   },
 
@@ -25,9 +24,7 @@ export default createEnv({
     NEXT_PUBLIC_POSTHOG_HOST: z.string(),
     NEXT_PUBLIC_TITLE: z.string(),
     NEXT_PUBLIC_HOST: z.string().url(),
-    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: z.string(),
     NEXT_PUBLIC_CONVEX_URL: z.string(),
-    NEXT_PUBLIC_CLERK_FRONTEND_API_URL: z.string(),
   },
 
   /**
@@ -42,11 +39,6 @@ export default createEnv({
     UPSTASH_REDIS_PASSWORD: process.env.UPSTASH_REDIS_PASSWORD,
     NEXT_PUBLIC_TITLE: process.env.NEXT_PUBLIC_TITLE,
     NEXT_PUBLIC_HOST: process.env.NEXT_PUBLIC_HOST,
-    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY:
-      process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,
-    CLERK_SECRET_KEY: process.env.CLERK_SECRET_KEY,
-    NEXT_PUBLIC_CLERK_FRONTEND_API_URL:
-      process.env.NEXT_PUBLIC_CLERK_FRONTEND_API_URL,
     NEXT_PUBLIC_CONVEX_URL: process.env.NEXT_PUBLIC_CONVEX_URL,
     UPLOADTHING_TOKEN: process.env.UPLOADTHING_TOKEN,
     // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,

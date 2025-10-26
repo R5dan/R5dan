@@ -1,4 +1,6 @@
-import { animated } from "@react-spring/web";
+//"use client";
+
+//import { animated } from "@react-spring/web";
 import { motion } from "motion/react";
 import * as BaseUI from "@base-ui-components/react";
 
@@ -6,7 +8,7 @@ import Asterisk from "~/components/asterisk";
 import BlockQuote from "~/components/blockquote";
 import Boop from "~/components/boop";
 import CodeBlock from "~/components/code";
-import { CodeTab, getCodeGroup } from "~/components/code-group";
+import { CodeTab, CodeGroup } from "~/components/code-group";
 import Copy from "~/components/copy";
 import Download from "~/components/download";
 import FileInput from "~/components/fileInput";
@@ -20,9 +22,9 @@ const components = {
   Asterisk,
   BlockQuote,
   Boop,
-  CodeGroup: getCodeGroup(),
+  CodeGroup,
   CodeTab,
-  CodeBlock,
+  code: CodeBlock,
   Copy,
   Download,
   FileInput,
@@ -39,12 +41,14 @@ type embeddedComponents<T, O extends boolean = true> = O extends true
   : {
       [K in keyof T]: React.ComponentType | embeddedComponents<T[K], O>;
     };
+
 const ui: ((
   wrappedComponent: keyof typeof BaseUI,
 ) => React.ComponentType | embeddedComponents<typeof BaseUI>) &
   embeddedComponents<typeof BaseUI> = (component: keyof typeof BaseUI) => {
   return BaseUI[component];
 };
+
 Object.entries(BaseUI).forEach(
   ([key, comp]) =>
     // @ts-expect-error its fine
@@ -53,7 +57,7 @@ Object.entries(BaseUI).forEach(
 
 export default {
   ...components,
-  animated,
+  //animated,
   motion,
   ui: ui as unknown as ((wrappedComponent: string) => React.ComponentType) &
     embeddedComponents<typeof BaseUI, false>,

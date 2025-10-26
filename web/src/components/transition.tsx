@@ -1,4 +1,6 @@
-import React, { useEffect, useRef, type JSX } from "react";
+"use client";
+
+import React, { type JSX } from "react";
 import { useTransition, animated } from "@react-spring/web";
 
 export default function Transition({

@@ -1,14 +1,14 @@
+// "use client";
+
 import "~/styles/globals.css";
 
 import { type Metadata } from "next";
 import { Geist } from "next/font/google";
-import {
-  ClerkProvider,
-  SignInButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from "@clerk/nextjs";
+// import {
+//   Authenticated,
+//   Unauthenticated,
+//   AuthLoading,
+// } from "convex/react"
 
 import { PostHogProvider } from "~/server/posthog/provider";
 import env from "~/env";
@@ -17,6 +17,7 @@ import { ConvexClientProvider } from "./convex";
 import { ThemeProvider } from "../components/themeProvider";
 import { ThemeToggle } from "../components/themeToggle";
 import Link from "next/link";
+import { ImageKitProvider } from "@imagekit/next";
 
 export const metadata: Metadata = {
   title: env.NEXT_PUBLIC_TITLE,
@@ -37,7 +38,7 @@ export default function RootLayout({
       <body className="dark:bg-black">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <PostHogProvider>
-            <ClerkProvider>
+            <ImageKitProvider urlEndpoint="https://ik.imagekit.io/gg882iu3u/">
               <ConvexClientProvider>
                 <header className="bg-background/80 supports-[backdrop-filter]:bg-background/60 sticky top-0 z-30 w-full border-b backdrop-blur">
                   <div className="container mx-auto flex h-16 items-center justify-between gap-4 px-4">
@@ -58,19 +59,19 @@ export default function RootLayout({
                     </nav>
                     <div className="flex items-center gap-2">
                       <ThemeToggle />
-                      <SignedOut>
-                        <SignInButton />
-                      </SignedOut>
-                      <SignedIn>
-                        <UserButton />
-                      </SignedIn>
+                      {/* <Authenticated>
+                        <></>
+                      </Authenticated>
+                      <Unauthenticated>
+                        <></>
+                      </Unauthenticated> */}
                     </div>
                   </div>
                 </header>
                 {children}
                 <Toaster />
               </ConvexClientProvider>
-            </ClerkProvider>
+            </ImageKitProvider>
           </PostHogProvider>
         </ThemeProvider>
       </body>

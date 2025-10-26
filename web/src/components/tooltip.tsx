@@ -4,20 +4,37 @@ import type React from "react";
 
 export function Tooltip({
   children,
-  arrow = <ArrowDown />,
+  arrowIcon = <ArrowDown />,
   contents,
+  props = {},
 }: {
   children: React.ReactNode;
-  arrow?: React.ReactNode;
+  arrowIcon?: React.ReactNode;
   contents: React.ReactNode;
+  props?: {
+    root?: BaseTooltip.Root.Props;
+    trigger?: BaseTooltip.Trigger.Props;
+    portal?: BaseTooltip.Portal.Props;
+    positioner?: BaseTooltip.Positioner.Props;
+    popup?: BaseTooltip.Popup.Props;
+    arrow?: BaseTooltip.Arrow.Props;
+  };
 }) {
+  const {
+    root = {},
+    trigger = {},
+    portal = {},
+    positioner = { sideOffset: 10 },
+    popup = {},
+    arrow = {},
+  } = props || {};
   return (
-    <BaseTooltip.Root>
-      <BaseTooltip.Trigger>{children}</BaseTooltip.Trigger>
-      <BaseTooltip.Portal>
-        <BaseTooltip.Positioner sideOffset={10}>
-          <BaseTooltip.Popup>
-            <BaseTooltip.Arrow>{arrow}</BaseTooltip.Arrow>
+    <BaseTooltip.Root {...root}>
+      <BaseTooltip.Trigger {...trigger}>{children}</BaseTooltip.Trigger>
+      <BaseTooltip.Portal {...portal}>
+        <BaseTooltip.Positioner {...positioner}>
+          <BaseTooltip.Popup {...popup}>
+            <BaseTooltip.Arrow {...arrow}>{arrowIcon}</BaseTooltip.Arrow>
             {contents}
           </BaseTooltip.Popup>
         </BaseTooltip.Positioner>

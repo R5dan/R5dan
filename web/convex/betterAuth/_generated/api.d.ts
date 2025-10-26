@@ -106,6 +106,45 @@ export type Mounts = {
           | {
               data: { backupCodes: string; secret: string; userId: string };
               model: "twoFactor";
+            }
+          | {
+              data: {
+                createdAt: number;
+                enabled?: null | boolean;
+                expiresAt?: null | number;
+                key: string;
+                lastRefillAt?: null | number;
+                lastRequest?: null | number;
+                metadata?: null | string;
+                name?: null | string;
+                permissions?: null | string;
+                prefix?: null | string;
+                rateLimitEnabled?: null | boolean;
+                rateLimitMax?: null | number;
+                rateLimitTimeWindow?: null | number;
+                refillAmount?: null | number;
+                refillInterval?: null | number;
+                remaining?: null | number;
+                requestCount?: null | number;
+                start?: null | string;
+                updatedAt: number;
+                userId: string;
+              };
+              model: "apikey";
+            }
+          | {
+              data: {
+                clientId?: null | string;
+                deviceCode: string;
+                expiresAt: number;
+                lastPolledAt?: null | number;
+                pollingInterval?: null | number;
+                scope?: null | string;
+                status: string;
+                userCode: string;
+                userId?: null | string;
+              };
+              model: "deviceCode";
             };
         onCreateHandle?: string;
         select?: Array<string>;
@@ -136,7 +175,7 @@ export type Mounts = {
                   | "banReason"
                   | "banExpires"
                   | "twoFactorEnabled"
-                  | "id";
+                  | "_id";
                 operator?:
                   | "lt"
                   | "lte"
@@ -144,6 +183,7 @@ export type Mounts = {
                   | "gte"
                   | "eq"
                   | "in"
+                  | "not_in"
                   | "ne"
                   | "contains"
                   | "starts_with"
@@ -170,7 +210,7 @@ export type Mounts = {
                   | "userAgent"
                   | "userId"
                   | "impersonatedBy"
-                  | "id";
+                  | "_id";
                 operator?:
                   | "lt"
                   | "lte"
@@ -178,6 +218,7 @@ export type Mounts = {
                   | "gte"
                   | "eq"
                   | "in"
+                  | "not_in"
                   | "ne"
                   | "contains"
                   | "starts_with"
@@ -208,7 +249,7 @@ export type Mounts = {
                   | "password"
                   | "createdAt"
                   | "updatedAt"
-                  | "id";
+                  | "_id";
                 operator?:
                   | "lt"
                   | "lte"
@@ -216,6 +257,7 @@ export type Mounts = {
                   | "gte"
                   | "eq"
                   | "in"
+                  | "not_in"
                   | "ne"
                   | "contains"
                   | "starts_with"
@@ -239,7 +281,7 @@ export type Mounts = {
                   | "expiresAt"
                   | "createdAt"
                   | "updatedAt"
-                  | "id";
+                  | "_id";
                 operator?:
                   | "lt"
                   | "lte"
@@ -247,6 +289,7 @@ export type Mounts = {
                   | "gte"
                   | "eq"
                   | "in"
+                  | "not_in"
                   | "ne"
                   | "contains"
                   | "starts_with"
@@ -264,7 +307,7 @@ export type Mounts = {
               model: "jwks";
               where?: Array<{
                 connector?: "AND" | "OR";
-                field: "publicKey" | "privateKey" | "createdAt" | "id";
+                field: "publicKey" | "privateKey" | "createdAt" | "_id";
                 operator?:
                   | "lt"
                   | "lte"
@@ -272,6 +315,7 @@ export type Mounts = {
                   | "gte"
                   | "eq"
                   | "in"
+                  | "not_in"
                   | "ne"
                   | "contains"
                   | "starts_with"
@@ -289,7 +333,7 @@ export type Mounts = {
               model: "twoFactor";
               where?: Array<{
                 connector?: "AND" | "OR";
-                field: "secret" | "backupCodes" | "userId" | "id";
+                field: "secret" | "backupCodes" | "userId" | "_id";
                 operator?:
                   | "lt"
                   | "lte"
@@ -297,6 +341,90 @@ export type Mounts = {
                   | "gte"
                   | "eq"
                   | "in"
+                  | "not_in"
+                  | "ne"
+                  | "contains"
+                  | "starts_with"
+                  | "ends_with";
+                value:
+                  | string
+                  | number
+                  | boolean
+                  | Array<string>
+                  | Array<number>
+                  | null;
+              }>;
+            }
+          | {
+              model: "apikey";
+              where?: Array<{
+                connector?: "AND" | "OR";
+                field:
+                  | "name"
+                  | "start"
+                  | "prefix"
+                  | "key"
+                  | "userId"
+                  | "refillInterval"
+                  | "refillAmount"
+                  | "lastRefillAt"
+                  | "enabled"
+                  | "rateLimitEnabled"
+                  | "rateLimitTimeWindow"
+                  | "rateLimitMax"
+                  | "requestCount"
+                  | "remaining"
+                  | "lastRequest"
+                  | "expiresAt"
+                  | "createdAt"
+                  | "updatedAt"
+                  | "permissions"
+                  | "metadata"
+                  | "_id";
+                operator?:
+                  | "lt"
+                  | "lte"
+                  | "gt"
+                  | "gte"
+                  | "eq"
+                  | "in"
+                  | "not_in"
+                  | "ne"
+                  | "contains"
+                  | "starts_with"
+                  | "ends_with";
+                value:
+                  | string
+                  | number
+                  | boolean
+                  | Array<string>
+                  | Array<number>
+                  | null;
+              }>;
+            }
+          | {
+              model: "deviceCode";
+              where?: Array<{
+                connector?: "AND" | "OR";
+                field:
+                  | "deviceCode"
+                  | "userCode"
+                  | "userId"
+                  | "expiresAt"
+                  | "status"
+                  | "lastPolledAt"
+                  | "pollingInterval"
+                  | "clientId"
+                  | "scope"
+                  | "_id";
+                operator?:
+                  | "lt"
+                  | "lte"
+                  | "gt"
+                  | "gte"
+                  | "eq"
+                  | "in"
+                  | "not_in"
                   | "ne"
                   | "contains"
                   | "starts_with"
@@ -346,7 +474,7 @@ export type Mounts = {
                   | "banReason"
                   | "banExpires"
                   | "twoFactorEnabled"
-                  | "id";
+                  | "_id";
                 operator?:
                   | "lt"
                   | "lte"
@@ -354,6 +482,7 @@ export type Mounts = {
                   | "gte"
                   | "eq"
                   | "in"
+                  | "not_in"
                   | "ne"
                   | "contains"
                   | "starts_with"
@@ -380,7 +509,7 @@ export type Mounts = {
                   | "userAgent"
                   | "userId"
                   | "impersonatedBy"
-                  | "id";
+                  | "_id";
                 operator?:
                   | "lt"
                   | "lte"
@@ -388,6 +517,7 @@ export type Mounts = {
                   | "gte"
                   | "eq"
                   | "in"
+                  | "not_in"
                   | "ne"
                   | "contains"
                   | "starts_with"
@@ -418,7 +548,7 @@ export type Mounts = {
                   | "password"
                   | "createdAt"
                   | "updatedAt"
-                  | "id";
+                  | "_id";
                 operator?:
                   | "lt"
                   | "lte"
@@ -426,6 +556,7 @@ export type Mounts = {
                   | "gte"
                   | "eq"
                   | "in"
+                  | "not_in"
                   | "ne"
                   | "contains"
                   | "starts_with"
@@ -449,7 +580,7 @@ export type Mounts = {
                   | "expiresAt"
                   | "createdAt"
                   | "updatedAt"
-                  | "id";
+                  | "_id";
                 operator?:
                   | "lt"
                   | "lte"
@@ -457,6 +588,7 @@ export type Mounts = {
                   | "gte"
                   | "eq"
                   | "in"
+                  | "not_in"
                   | "ne"
                   | "contains"
                   | "starts_with"
@@ -474,7 +606,7 @@ export type Mounts = {
               model: "jwks";
               where?: Array<{
                 connector?: "AND" | "OR";
-                field: "publicKey" | "privateKey" | "createdAt" | "id";
+                field: "publicKey" | "privateKey" | "createdAt" | "_id";
                 operator?:
                   | "lt"
                   | "lte"
@@ -482,6 +614,7 @@ export type Mounts = {
                   | "gte"
                   | "eq"
                   | "in"
+                  | "not_in"
                   | "ne"
                   | "contains"
                   | "starts_with"
@@ -499,7 +632,7 @@ export type Mounts = {
               model: "twoFactor";
               where?: Array<{
                 connector?: "AND" | "OR";
-                field: "secret" | "backupCodes" | "userId" | "id";
+                field: "secret" | "backupCodes" | "userId" | "_id";
                 operator?:
                   | "lt"
                   | "lte"
@@ -507,6 +640,90 @@ export type Mounts = {
                   | "gte"
                   | "eq"
                   | "in"
+                  | "not_in"
+                  | "ne"
+                  | "contains"
+                  | "starts_with"
+                  | "ends_with";
+                value:
+                  | string
+                  | number
+                  | boolean
+                  | Array<string>
+                  | Array<number>
+                  | null;
+              }>;
+            }
+          | {
+              model: "apikey";
+              where?: Array<{
+                connector?: "AND" | "OR";
+                field:
+                  | "name"
+                  | "start"
+                  | "prefix"
+                  | "key"
+                  | "userId"
+                  | "refillInterval"
+                  | "refillAmount"
+                  | "lastRefillAt"
+                  | "enabled"
+                  | "rateLimitEnabled"
+                  | "rateLimitTimeWindow"
+                  | "rateLimitMax"
+                  | "requestCount"
+                  | "remaining"
+                  | "lastRequest"
+                  | "expiresAt"
+                  | "createdAt"
+                  | "updatedAt"
+                  | "permissions"
+                  | "metadata"
+                  | "_id";
+                operator?:
+                  | "lt"
+                  | "lte"
+                  | "gt"
+                  | "gte"
+                  | "eq"
+                  | "in"
+                  | "not_in"
+                  | "ne"
+                  | "contains"
+                  | "starts_with"
+                  | "ends_with";
+                value:
+                  | string
+                  | number
+                  | boolean
+                  | Array<string>
+                  | Array<number>
+                  | null;
+              }>;
+            }
+          | {
+              model: "deviceCode";
+              where?: Array<{
+                connector?: "AND" | "OR";
+                field:
+                  | "deviceCode"
+                  | "userCode"
+                  | "userId"
+                  | "expiresAt"
+                  | "status"
+                  | "lastPolledAt"
+                  | "pollingInterval"
+                  | "clientId"
+                  | "scope"
+                  | "_id";
+                operator?:
+                  | "lt"
+                  | "lte"
+                  | "gt"
+                  | "gte"
+                  | "eq"
+                  | "in"
+                  | "not_in"
                   | "ne"
                   | "contains"
                   | "starts_with"
@@ -535,7 +752,9 @@ export type Mounts = {
           | "account"
           | "verification"
           | "jwks"
-          | "twoFactor";
+          | "twoFactor"
+          | "apikey"
+          | "deviceCode";
         offset?: number;
         paginationOpts: {
           cursor: string | null;
@@ -556,6 +775,7 @@ export type Mounts = {
             | "gte"
             | "eq"
             | "in"
+            | "not_in"
             | "ne"
             | "contains"
             | "starts_with"
@@ -581,7 +801,9 @@ export type Mounts = {
           | "account"
           | "verification"
           | "jwks"
-          | "twoFactor";
+          | "twoFactor"
+          | "apikey"
+          | "deviceCode";
         select?: Array<string>;
         where?: Array<{
           connector?: "AND" | "OR";
@@ -593,6 +815,7 @@ export type Mounts = {
             | "gte"
             | "eq"
             | "in"
+            | "not_in"
             | "ne"
             | "contains"
             | "starts_with"
@@ -648,7 +871,7 @@ export type Mounts = {
                   | "banReason"
                   | "banExpires"
                   | "twoFactorEnabled"
-                  | "id";
+                  | "_id";
                 operator?:
                   | "lt"
                   | "lte"
@@ -656,6 +879,7 @@ export type Mounts = {
                   | "gte"
                   | "eq"
                   | "in"
+                  | "not_in"
                   | "ne"
                   | "contains"
                   | "starts_with"
@@ -692,7 +916,7 @@ export type Mounts = {
                   | "userAgent"
                   | "userId"
                   | "impersonatedBy"
-                  | "id";
+                  | "_id";
                 operator?:
                   | "lt"
                   | "lte"
@@ -700,6 +924,7 @@ export type Mounts = {
                   | "gte"
                   | "eq"
                   | "in"
+                  | "not_in"
                   | "ne"
                   | "contains"
                   | "starts_with"
@@ -744,7 +969,7 @@ export type Mounts = {
                   | "password"
                   | "createdAt"
                   | "updatedAt"
-                  | "id";
+                  | "_id";
                 operator?:
                   | "lt"
                   | "lte"
@@ -752,6 +977,7 @@ export type Mounts = {
                   | "gte"
                   | "eq"
                   | "in"
+                  | "not_in"
                   | "ne"
                   | "contains"
                   | "starts_with"
@@ -782,7 +1008,7 @@ export type Mounts = {
                   | "expiresAt"
                   | "createdAt"
                   | "updatedAt"
-                  | "id";
+                  | "_id";
                 operator?:
                   | "lt"
                   | "lte"
@@ -790,6 +1016,7 @@ export type Mounts = {
                   | "gte"
                   | "eq"
                   | "in"
+                  | "not_in"
                   | "ne"
                   | "contains"
                   | "starts_with"
@@ -812,7 +1039,7 @@ export type Mounts = {
               };
               where?: Array<{
                 connector?: "AND" | "OR";
-                field: "publicKey" | "privateKey" | "createdAt" | "id";
+                field: "publicKey" | "privateKey" | "createdAt" | "_id";
                 operator?:
                   | "lt"
                   | "lte"
@@ -820,6 +1047,7 @@ export type Mounts = {
                   | "gte"
                   | "eq"
                   | "in"
+                  | "not_in"
                   | "ne"
                   | "contains"
                   | "starts_with"
@@ -842,7 +1070,7 @@ export type Mounts = {
               };
               where?: Array<{
                 connector?: "AND" | "OR";
-                field: "secret" | "backupCodes" | "userId" | "id";
+                field: "secret" | "backupCodes" | "userId" | "_id";
                 operator?:
                   | "lt"
                   | "lte"
@@ -850,6 +1078,123 @@ export type Mounts = {
                   | "gte"
                   | "eq"
                   | "in"
+                  | "not_in"
+                  | "ne"
+                  | "contains"
+                  | "starts_with"
+                  | "ends_with";
+                value:
+                  | string
+                  | number
+                  | boolean
+                  | Array<string>
+                  | Array<number>
+                  | null;
+              }>;
+            }
+          | {
+              model: "apikey";
+              update: {
+                createdAt?: number;
+                enabled?: null | boolean;
+                expiresAt?: null | number;
+                key?: string;
+                lastRefillAt?: null | number;
+                lastRequest?: null | number;
+                metadata?: null | string;
+                name?: null | string;
+                permissions?: null | string;
+                prefix?: null | string;
+                rateLimitEnabled?: null | boolean;
+                rateLimitMax?: null | number;
+                rateLimitTimeWindow?: null | number;
+                refillAmount?: null | number;
+                refillInterval?: null | number;
+                remaining?: null | number;
+                requestCount?: null | number;
+                start?: null | string;
+                updatedAt?: number;
+                userId?: string;
+              };
+              where?: Array<{
+                connector?: "AND" | "OR";
+                field:
+                  | "name"
+                  | "start"
+                  | "prefix"
+                  | "key"
+                  | "userId"
+                  | "refillInterval"
+                  | "refillAmount"
+                  | "lastRefillAt"
+                  | "enabled"
+                  | "rateLimitEnabled"
+                  | "rateLimitTimeWindow"
+                  | "rateLimitMax"
+                  | "requestCount"
+                  | "remaining"
+                  | "lastRequest"
+                  | "expiresAt"
+                  | "createdAt"
+                  | "updatedAt"
+                  | "permissions"
+                  | "metadata"
+                  | "_id";
+                operator?:
+                  | "lt"
+                  | "lte"
+                  | "gt"
+                  | "gte"
+                  | "eq"
+                  | "in"
+                  | "not_in"
+                  | "ne"
+                  | "contains"
+                  | "starts_with"
+                  | "ends_with";
+                value:
+                  | string
+                  | number
+                  | boolean
+                  | Array<string>
+                  | Array<number>
+                  | null;
+              }>;
+            }
+          | {
+              model: "deviceCode";
+              update: {
+                clientId?: null | string;
+                deviceCode?: string;
+                expiresAt?: number;
+                lastPolledAt?: null | number;
+                pollingInterval?: null | number;
+                scope?: null | string;
+                status?: string;
+                userCode?: string;
+                userId?: null | string;
+              };
+              where?: Array<{
+                connector?: "AND" | "OR";
+                field:
+                  | "deviceCode"
+                  | "userCode"
+                  | "userId"
+                  | "expiresAt"
+                  | "status"
+                  | "lastPolledAt"
+                  | "pollingInterval"
+                  | "clientId"
+                  | "scope"
+                  | "_id";
+                operator?:
+                  | "lt"
+                  | "lte"
+                  | "gt"
+                  | "gte"
+                  | "eq"
+                  | "in"
+                  | "not_in"
                   | "ne"
                   | "contains"
                   | "starts_with"
@@ -915,7 +1260,7 @@ export type Mounts = {
                   | "banReason"
                   | "banExpires"
                   | "twoFactorEnabled"
-                  | "id";
+                  | "_id";
                 operator?:
                   | "lt"
                   | "lte"
@@ -923,6 +1268,7 @@ export type Mounts = {
                   | "gte"
                   | "eq"
                   | "in"
+                  | "not_in"
                   | "ne"
                   | "contains"
                   | "starts_with"
@@ -959,7 +1305,7 @@ export type Mounts = {
                   | "userAgent"
                   | "userId"
                   | "impersonatedBy"
-                  | "id";
+                  | "_id";
                 operator?:
                   | "lt"
                   | "lte"
@@ -967,6 +1313,7 @@ export type Mounts = {
                   | "gte"
                   | "eq"
                   | "in"
+                  | "not_in"
                   | "ne"
                   | "contains"
                   | "starts_with"
@@ -1011,7 +1358,7 @@ export type Mounts = {
                   | "password"
                   | "createdAt"
                   | "updatedAt"
-                  | "id";
+                  | "_id";
                 operator?:
                   | "lt"
                   | "lte"
@@ -1019,6 +1366,7 @@ export type Mounts = {
                   | "gte"
                   | "eq"
                   | "in"
+                  | "not_in"
                   | "ne"
                   | "contains"
                   | "starts_with"
@@ -1049,7 +1397,7 @@ export type Mounts = {
                   | "expiresAt"
                   | "createdAt"
                   | "updatedAt"
-                  | "id";
+                  | "_id";
                 operator?:
                   | "lt"
                   | "lte"
@@ -1057,6 +1405,7 @@ export type Mounts = {
                   | "gte"
                   | "eq"
                   | "in"
+                  | "not_in"
                   | "ne"
                   | "contains"
                   | "starts_with"
@@ -1079,7 +1428,7 @@ export type Mounts = {
               };
               where?: Array<{
                 connector?: "AND" | "OR";
-                field: "publicKey" | "privateKey" | "createdAt" | "id";
+                field: "publicKey" | "privateKey" | "createdAt" | "_id";
                 operator?:
                   | "lt"
                   | "lte"
@@ -1087,6 +1436,7 @@ export type Mounts = {
                   | "gte"
                   | "eq"
                   | "in"
+                  | "not_in"
                   | "ne"
                   | "contains"
                   | "starts_with"
@@ -1109,7 +1459,7 @@ export type Mounts = {
               };
               where?: Array<{
                 connector?: "AND" | "OR";
-                field: "secret" | "backupCodes" | "userId" | "id";
+                field: "secret" | "backupCodes" | "userId" | "_id";
                 operator?:
                   | "lt"
                   | "lte"
@@ -1117,6 +1467,123 @@ export type Mounts = {
                   | "gte"
                   | "eq"
                   | "in"
+                  | "not_in"
+                  | "ne"
+                  | "contains"
+                  | "starts_with"
+                  | "ends_with";
+                value:
+                  | string
+                  | number
+                  | boolean
+                  | Array<string>
+                  | Array<number>
+                  | null;
+              }>;
+            }
+          | {
+              model: "apikey";
+              update: {
+                createdAt?: number;
+                enabled?: null | boolean;
+                expiresAt?: null | number;
+                key?: string;
+                lastRefillAt?: null | number;
+                lastRequest?: null | number;
+                metadata?: null | string;
+                name?: null | string;
+                permissions?: null | string;
+                prefix?: null | string;
+                rateLimitEnabled?: null | boolean;
+                rateLimitMax?: null | number;
+                rateLimitTimeWindow?: null | number;
+                refillAmount?: null | number;
+                refillInterval?: null | number;
+                remaining?: null | number;
+                requestCount?: null | number;
+                start?: null | string;
+                updatedAt?: number;
+                userId?: string;
+              };
+              where?: Array<{
+                connector?: "AND" | "OR";
+                field:
+                  | "name"
+                  | "start"
+                  | "prefix"
+                  | "key"
+                  | "userId"
+                  | "refillInterval"
+                  | "refillAmount"
+                  | "lastRefillAt"
+                  | "enabled"
+                  | "rateLimitEnabled"
+                  | "rateLimitTimeWindow"
+                  | "rateLimitMax"
+                  | "requestCount"
+                  | "remaining"
+                  | "lastRequest"
+                  | "expiresAt"
+                  | "createdAt"
+                  | "updatedAt"
+                  | "permissions"
+                  | "metadata"
+                  | "_id";
+                operator?:
+                  | "lt"
+                  | "lte"
+                  | "gt"
+                  | "gte"
+                  | "eq"
+                  | "in"
+                  | "not_in"
+                  | "ne"
+                  | "contains"
+                  | "starts_with"
+                  | "ends_with";
+                value:
+                  | string
+                  | number
+                  | boolean
+                  | Array<string>
+                  | Array<number>
+                  | null;
+              }>;
+            }
+          | {
+              model: "deviceCode";
+              update: {
+                clientId?: null | string;
+                deviceCode?: string;
+                expiresAt?: number;
+                lastPolledAt?: null | number;
+                pollingInterval?: null | number;
+                scope?: null | string;
+                status?: string;
+                userCode?: string;
+                userId?: null | string;
+              };
+              where?: Array<{
+                connector?: "AND" | "OR";
+                field:
+                  | "deviceCode"
+                  | "userCode"
+                  | "userId"
+                  | "expiresAt"
+                  | "status"
+                  | "lastPolledAt"
+                  | "pollingInterval"
+                  | "clientId"
+                  | "scope"
+                  | "_id";
+                operator?:
+                  | "lt"
+                  | "lte"
+                  | "gt"
+                  | "gte"
+                  | "eq"
+                  | "in"
+                  | "not_in"
                   | "ne"
                   | "contains"
                   | "starts_with"

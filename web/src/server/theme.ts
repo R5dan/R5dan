@@ -13,7 +13,7 @@ export function useTheme(
     }
   } else {
     if (theme) {
-      return [theme, setTheme] as const;
+      return [theme as "dark" | "light", setTheme] as const;
     } else {
       return [defaultTheme, setTheme] as const;
     }
