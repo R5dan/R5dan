@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import Page from "./mainPage";
+import {Page} from "./mainPage";
 
 
 export default async function Wrapper({
