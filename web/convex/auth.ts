@@ -55,6 +55,7 @@ export const createAuth = (
 			apiKey(),
 			deviceAuthorization(),
 		],
+		allowOrigins: ["r5dan.vercel.app", "localhost:3000"],
 	});
 };
 

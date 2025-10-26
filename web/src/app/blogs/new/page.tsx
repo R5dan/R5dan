@@ -9,8 +9,6 @@ import { Textarea } from "~/components/shadcn/textarea";
 import { Label } from "~/components/shadcn/label";
 import { Card } from "~/components/shadcn/card";
 import { Switch } from "~/components/shadcn/switch";
-import type { Id } from "../../../../convex/_generated/dataModel";
-import { useRouter } from "next/navigation";
 
 export default function Page() {
   const user = useQuery(api.auth.getCurrentUser);

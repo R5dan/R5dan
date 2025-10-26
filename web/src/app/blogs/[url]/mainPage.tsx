@@ -26,12 +26,12 @@ export async function Page({ params }: { params: Promise<{ url: string }> }) {
   );
 
   return (
-    <CodeGroupContext>
+    // <CodeGroupContext>
       <Suspense
         fallback={<CachedPreview blog={blog} deployment={deployment} />}
       >
         <Client blogId={blog._id} deploymentId={deployment._id} />
       </Suspense>
-    </CodeGroupContext>
+  //  </CodeGroupContext>
   );
 }
