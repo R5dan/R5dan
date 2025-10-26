@@ -14,7 +14,7 @@ import {
 	ac,
 	admin as adminRole,
 	reviewer as reviewerRole,
-} from "../web/src/server/auth/permisions";
+} from "~/server/auth/permisions";
 import { query } from "./_generated/server";
 
 const siteUrl = process.env.SITE_URL!;
