@@ -58,7 +58,7 @@ Object.entries(BaseUI).forEach(
 export default {
   ...components,
   //animated,
-  motion,
+  //motion,
   ui: ui as unknown as ((wrappedComponent: string) => React.ComponentType) &
     embeddedComponents<typeof BaseUI, false>,
 } as const;

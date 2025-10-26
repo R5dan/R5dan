@@ -4,9 +4,9 @@ import "~/styles/globals.css";
 
 import { type Metadata } from "next";
 import { Geist } from "next/font/google";
-import {
-  Unauthenticated,
-} from "convex/react"
+// import {
+//   Unauthenticated,
+// } from "convex/react"
 
 import { PostHogProvider } from "~/server/posthog/provider";
 import env from "~/env";
@@ -57,9 +57,9 @@ export default function RootLayout({
                     </nav>
                     <div className="flex items-center gap-2">
                       <ThemeToggle />
-                      <Unauthenticated>
+                      {/* <Unauthenticated>
                         <Link className="border-2 border-black" href="/auth/login">Login</Link>
-                      </Unauthenticated>
+                      </Unauthenticated> */}
                     </div>
                   </div>
                 </header>
