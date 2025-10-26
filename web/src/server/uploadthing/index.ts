@@ -1,1 +1,1 @@
-export { utapi, getFile, getFileUrl } from "./utapi";
+export { getFile, getFileUrl } from "./utapi";
