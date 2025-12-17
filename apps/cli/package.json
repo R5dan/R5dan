@@ -1,28 +1,33 @@
 {
-  "name": "cli",
-  "module": "src/index.ts",
-  "type": "module",
-  "private": true,
-  "devDependencies": {
-    "@types/bun": "latest"
-  },
-  "peerDependencies": {
-    "typescript": "^5"
-  },
-  "scripts": {
-    "r5dan": "bun run src/index.ts",
-    "helper": "bun run src/index.ts"
-  },
-  "dependencies": {
-    "@clack/prompts": "^0.11.0",
-    "@openrouter/ai-sdk-provider": "^1.2.3",
-    "@r5dan/backend": "workspace:*",
-    "@trpc/client": "^11.7.1",
-    "commander": "^14.0.2",
-    "convex": "^1.29.1",
-    "ink": "^6.5.1",
-    "open": "^11.0.0",
-    "react": "^19.2.0",
-    "zod": "^4.1.12"
-  }
+	"name": "cli",
+	"module": "src/index.ts",
+	"type": "module",
+	"private": true,
+	"devDependencies": {
+		"@types/bun": "latest"
+	},
+	"peerDependencies": {
+		"typescript": "^5.8.3"
+	},
+	"scripts": {
+		"r5dan": "bun run src/index.ts",
+		"helper": "bun run src/index.ts"
+	},
+	"dependencies": {
+		"@clack/prompts": "^0.11.0",
+		"@openrouter/ai-sdk-provider": "^1.5.4",
+		"@r5dan/backend": "workspace:*",
+		"@trpc/client": "^11.8.0",
+		"commander": "^14.0.2",
+		"convex": "^1.31.1",
+		"ink": "^6.5.1",
+		"open": "^11.0.0",
+		"react": "^19.2.3",
+		"zod": "^4.2.1"
+	},
+	"bin": {
+		"r5dan": "src/index.ts",
+		"r5": "src/index.ts",
+		"r": "src/index.ts"
+	}
 }
