@@ -5,5 +5,5 @@ export const listTodos = query({
   args: {
     paginationOtps: paginationOptsValidator,
   },
-  handler: async () => {}
-})
+  handler: async () => {},
+});

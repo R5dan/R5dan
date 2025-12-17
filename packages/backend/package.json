@@ -1,21 +1,21 @@
 {
-	"name": "@r5dan/backend",
-	"version": "1.0.0",
-	"scripts": {
-		"convex:setup": "convex dev --configure --until-success",
-		"convex": "convex dev"
-	},
-	"author": "",
-	"license": "ISC",
-	"description": "",
-	"devDependencies": {
-		"@types/node": "^24.3.0",
-		"typescript": "catalog:"
-	},
-	"dependencies": {
-		"@convex-dev/better-auth": "^0.9.7",
-		"@upstash/redis": "^1.35.6",
-		"better-auth": "catalog:",
-		"convex": "^1.29.3"
-	}
+  "name": "@r5dan/backend",
+  "version": "1.0.0",
+  "scripts": {
+    "convex:setup": "convex dev --configure --until-success",
+    "convex": "convex dev"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@types/node": "^24.3.0",
+    "typescript": "catalog:"
+  },
+  "dependencies": {
+    "@convex-dev/better-auth": "^0.9.7",
+    "@upstash/redis": "^1.35.6",
+    "better-auth": "catalog:",
+    "convex": "^1.29.3"
+  }
 }

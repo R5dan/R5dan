@@ -1,5 +1,5 @@
 import { defineApp } from "convex/server";
-import betterAuth from "./betterAuth/convex.config"; 
+import betterAuth from "./betterAuth/convex.config";
 import todo from "./todo/convex.config";
 
 const app = defineApp();

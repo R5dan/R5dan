@@ -8,11 +8,16 @@ function table<N extends keyof typeof tables>(name: N) {
 
 export const getUsersOwnedOrganisation = query({
   args: {
-    userId: v.id("users")
+    userId: v.id("users"),
   },
   returns: v.array(table("member")),
   handler: async (ctx, args) => {
-    const orgs = await ctx.db.query("member").withIndex("role_user", (q) => q.eq("role", "owner").eq("userId", args.userId)).collect();
+    const orgs = await ctx.db
+      .query("member")
+      .withIndex("role_user", (q) =>
+        q.eq("role", "owner").eq("userId", args.userId),
+      )
+      .collect();
     return orgs;
-  }
-})
+  },
+});

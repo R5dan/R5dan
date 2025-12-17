@@ -9,18 +9,13 @@
   "orm": "none",
   "backend": "hono",
   "runtime": "bun",
-  "frontend": [
-    "tanstack-start",
-    "native-bare"
-  ],
-  "addons": [
-    "turborepo"
-  ],
+  "frontend": ["tanstack-start", "native-bare"],
+  "addons": ["turborepo"],
   "examples": [],
   "auth": "better-auth",
   "packageManager": "bun",
   "dbSetup": "none",
   "api": "trpc",
   "webDeploy": "none",
-  "serverDeploy": "none"
+  "serverDeploy": "none",
 }
